@@ -1,0 +1,25 @@
+#!/usr/bin/env -S java --source 16
+
+import java.io.*;
+
+public class day08 {
+  public static void main(String[] args) throws Throwable {
+    var buffer = new BufferedReader(new FileReader(new File("./input.txt")));
+    String line;
+    int count = 0;
+    while((line=buffer.readLine())!=null) {
+      var parts = line.split(" \\| ");
+      var digitStr = parts[1];
+      var digits = digitStr.split(" ");
+
+      for(var digit : digits) {
+        var len = digit.length();
+        if(len == 2 || len==3 || len==4 || len==7) {
+          count++;
+        }
+      }
+    }
+    System.out.print("Count: ");
+    System.out.println(count);
+  }
+}

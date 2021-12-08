@@ -1,0 +1,68 @@
+to decode segments and numbers:
+
+Sx  : which wire is handling real Segment x
+Nx  : which wires are handling real Number x
+Lx  : remaining wire-sets with length of x
+X-Y : set of wires which are in set X but not in set Y
+|X| : length of set X
+
+we know initialy that:
+N0 = {a,b,c,d,e,f, } => |N0| = 6
+N1 = { ,b,c, , , , } => |N1| = 2
+N2 = {a,b, ,d,e, ,g} => |N2| = 5
+N3 = {a,b,c,d, , ,g} => |N3| = 5
+N4 = { ,b,c, , ,f,g} => |N4| = 4
+N5 = {a, ,c,d, ,f,g} => |N5| = 5
+N6 = {a, ,c,d,e,f,g} => |N6| = 6
+N7 = {a,b,c, , , , } => |N7| = 3
+N8 = {a,b,c,d,e,f,g} => |N8| = 7
+N9 = {a,b,c,d, ,f,g} => |N9| = 6
+L2 => {N1}
+L3 => {N7}
+L4 => {N4}
+L5 => {N2, N3, N5}
+L6 => {N0, N6, N9}
+L7 => {N8}
+
+Step1:
+  Sa = N7-N1
+
+Step2:
+  | N2 - N1 | = |a+g+d+e| = 4
+  | N3 - N1 | = |a+g+d|   = 3
+  | N5 - N1 | = |a+g+d+f| = 4
+  N3 is found
+  L5={N2,N5}
+
+Step3:
+  Sd = N3-N4
+
+Step4:
+  |N9-N3| = |f|   = 1
+  |N6-N3| = |f+e| = 2
+  |N0-N3| = |f+e| = 2
+  N9 is found
+  L6={N0,N6}
+
+Step5:
+  Sf=N9-N3
+  Se=N8-N9
+
+Step6:
+  |N1-N0| = empty = 0
+  |N1-N6| = |b|   = 1
+  N6 and N0 are found
+  L6={}
+
+Step7:
+  Sb=N1-N6
+
+Step8:
+  |N2-{b}| = |a+g+d+e|   = 4
+  |N5-{b}| = |a+g+d+c+f| = |N5| = 5
+  N2 and N5 are found
+  L5={}
+
+Step9:
+  Sc=N1-{b}
+  Sg=N8-N0
